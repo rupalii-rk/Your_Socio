@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Socio – About Us</title>
+  <meta name="description" content="Learn more about the team and vision behind Your Socio." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-hero {
+      padding: 10rem 5% 5rem;
+      text-align: center;
+      background-color: var(--dark-bg);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255, 60, 0, 0.2) 0%, transparent 100%);
+      z-index: 1;
+    }
+
+    .page-hero h1,
+    .page-hero p {
+      position: relative;
+      z-index: 2;
+    }
+
+    .page-hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(3rem, 6vw, 5rem);
+      text-transform: uppercase;
+    }
+
+    .page-hero p {
+      font-size: 1.2rem;
+      color: #aaa;
+      margin-top: 1rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* 3D Floating Shapes for Hero */
+    .shape-3d {
+      position: absolute;
+      background: var(--primary-color);
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+      z-index: 0;
+      opacity: 0.15;
+      animation: floatShape 20s infinite linear;
+      transform-style: preserve-3d;
+    }
+
+    .shape-1 {
+      width: 100px;
+      height: 100px;
+      top: 10%;
+      left: 10%;
+      border-radius: 20px;
+    }
+
+    .shape-2 {
+      width: 150px;
+      height: 150px;
+      bottom: -20%;
+      right: 10%;
+      border-radius: 50%;
+      animation-duration: 25s;
+      animation-direction: reverse;
+    }
+
+    .shape-3 {
+      width: 80px;
+      height: 80px;
+      top: 40%;
+      left: 80%;
+      transform: rotate(45deg);
+      animation-duration: 15s;
+    }
+
+    @keyframes floatShape {
+      0% {
+        transform: translateY(0) rotateX(0) rotateY(0) rotateZ(0);
+      }
+
+      50% {
+        transform: translateY(-50px) rotateX(180deg) rotateY(180deg) rotateZ(90deg);
+      }
+
+      100% {
+        transform: translateY(0) rotateX(360deg) rotateY(360deg) rotateZ(180deg);
+      }
+    }
+
+    /* Team Grid */
+    .team-section {
+      padding: 5rem 5%;
+      background: var(--bg-color);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+
+    /* 3D Team Card */
+    .team-card {
+      background: var(--white);
+      border-radius: var(--border-radius-lg);
+      padding: 2rem;
+      text-align: center;
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+      border: 1px solid #eee;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .team-card-inner {
+      transform-style: preserve-3d;
+      pointer-events: none;
+    }
+
+    .team-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 1.5rem;
+      transform: translateZ(50px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      border: 4px solid var(--white);
+    }
+
+    .team-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      transform: translateZ(30px);
+    }
+
+    .team-card .role {
+      color: var(--primary-color);
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      transform: translateZ(20px);
+    }
+
+    .team-card p {
+      color: var(--text-gray);
+      font-size: 0.95rem;
+      transform: translateZ(10px);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo" id="logo-link">
+        <span class="logo-your">YOUR</span>
+        <span class="logo-socio">SOCIO</span>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="AboutUs.html" id="nav-about" class="orange-text">ABOUT</a></li>
+        <li><a href="Creators.html" id="nav-creators">CREATORS</a></li>
+        <li><a href="Brand.html" id="nav-brands">BRANDS</a></li>
+        <li><a href="index.html#support" id="nav-support">SUPPORT</a></li>
+      </ul>
+      <button class="btn-login" id="btn-login">LOGIN</button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ========== ABOUT HERO ========== -->
+  <header class="page-hero">
+    <div class="shape-3d shape-1"></div>
+    <div class="shape-3d shape-2"></div>
+    <div class="shape-3d shape-3"></div>
+
+    <h1>The Story Behind <br /><span class="orange-text">Your Socio</span></h1>
+    <p>We believe in a world where authenticity drives marketing. Meet the team working tirelessly to bring transparency
+      and real impact to the creator economy.</p>
+  </header>
+
+  <!-- ========== TEAM SECTION ========== -->
+  <section class="team-section">
+    <h2 class="section-title center">Meet Our <span class="orange-text">Founders</span></h2>
+    <div class="team-grid">
+
+      <!-- Team Member 1 -->
+      <div class="tilt-card team-card">
+        <div class="team-card-inner">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80" alt="CEO" class="team-img" />
+          <h3>Arjun Mehta</h3>
+          <div class="role">Co-Founder & CEO</div>
+          <p>Former marketing executive who got tired of vanity metrics and decided to build a platform based on truth.
+          </p>
+        </div>
+      </div>
+
+      <!-- Team Member 2 -->
+      <div class="tilt-card team-card">
+        <div class="team-card-inner">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" alt="CTO"
+            class="team-img" />
+          <h3>Priya Sharma</h3>
+          <div class="role">Co-Founder & CTO</div>
+          <p>Tech visionary leading the development of our proprietary engagement tracking algorithms.</p>
+        </div>
+      </div>
+
+      <!-- Team Member 3 -->
+      <div class="tilt-card team-card">
+        <div class="team-card-inner">
+          <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80" alt="COO"
+            class="team-img" />
+          <h3>Vikram Singh</h3>
+          <div class="role">Chief Operations Officer</div>
+          <p>Ensuring every creator and brand has a seamless, impactful experience on the Your Socio platform.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer" id="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="index.html" class="logo footer-logo">
+          <span class="logo-your">YOUR</span>
+          <span class="logo-socio">SOCIO</span>
+        </a>
+        <p class="footer-tagline">The ultimate platform connecting brands with real creators for meaningful
+          collaborations.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-icon" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-icon" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" class="social-icon" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">COMPANY</h4>
+        <ul>
+          <li><a href="AboutUs.html">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">RESOURCES</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Guidelines</a></li>
+          <li><a href="Creators.html">For Creators</a></li>
+          <li><a href="Brand.html">For Brands</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">LEGAL</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Your Socio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
