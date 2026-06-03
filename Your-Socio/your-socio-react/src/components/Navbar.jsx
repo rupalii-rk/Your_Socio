@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Logo from './Logo';
 
 /**
@@ -38,7 +39,7 @@ export default function Navbar() {
           <li><a href="#brands" id="nav-brands">BRANDS</a></li>
           <li><a href="#support" id="nav-support">SUPPORT</a></li>
         </ul>
-        <button className="btn-login" id="btn-login">LOGIN</button>
+        <Link to="/signin" className="btn-login" id="btn-login">LOGIN</Link>
         <button
           className="hamburger"
           id="hamburger"

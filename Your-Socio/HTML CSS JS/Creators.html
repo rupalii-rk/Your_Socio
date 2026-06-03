@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Socio – Creators</title>
+  <meta name="description" content="Discover and connect with top creators on Your Socio." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-hero {
+      padding: 10rem 5% 5rem;
+      text-align: center;
+      background-color: var(--dark-bg);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: 50%;
+      width: 100%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,60,0,0.15) 0%, transparent 70%);
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+    .page-hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(3rem, 6vw, 5rem);
+      text-transform: uppercase;
+      position: relative;
+      z-index: 2;
+    }
+    .page-hero p {
+      font-size: 1.2rem;
+      color: #aaa;
+      margin-top: 1rem;
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .creators-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+      padding: 5rem 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* 3D Tilt Card Styles */
+    .tilt-card {
+      background: var(--dark-card);
+      border-radius: var(--border-radius-lg);
+      padding: 1.5rem;
+      color: var(--white);
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+      border: 1px solid #333;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    
+    .tilt-card-inner {
+      transform-style: preserve-3d;
+      pointer-events: none;
+    }
+
+    .tilt-card img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: var(--border-radius);
+      transform: translateZ(40px); /* 3D effect pop out */
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    .tilt-card-content {
+      transform: translateZ(60px); /* More pop out for text */
+      margin-top: 1.5rem;
+      background: rgba(20,20,20,0.6);
+      backdrop-filter: blur(5px);
+      padding: 1rem;
+      border-radius: var(--border-radius);
+      border: 1px solid #333;
+    }
+
+    .tilt-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      color: var(--white);
+    }
+    
+    .tilt-card .tag {
+      color: var(--primary-color);
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+    }
+
+    .tilt-card .stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+      border-top: 1px solid #444;
+      padding-top: 1rem;
+    }
+
+    .tilt-card .stats span {
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+
+    .tilt-card .stats strong {
+      display: block;
+      font-size: 1.1rem;
+      color: var(--white);
+      font-family: var(--font-heading);
+    }
+
+    /* Floating elements for 3D animation effect background */
+    .floating-cube {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background: var(--primary-color);
+      opacity: 0.2;
+      animation: float 10s infinite linear;
+      transform-style: preserve-3d;
+      z-index: 0;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotateX(0) rotateY(0); }
+      50% { transform: translateY(-100px) rotateX(180deg) rotateY(180deg); }
+      100% { transform: translateY(0) rotateX(360deg) rotateY(360deg); }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo" id="logo-link">
+        <span class="logo-your">YOUR</span>
+        <span class="logo-socio">SOCIO</span>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="AboutUs.html" id="nav-about">ABOUT</a></li>
+        <li><a href="Creators.html" id="nav-creators" class="orange-text">CREATORS</a></li>
+        <li><a href="Brand.html" id="nav-brands">BRANDS</a></li>
+        <li><a href="index.html#support" id="nav-support">SUPPORT</a></li>
+      </ul>
+      <button class="btn-login" id="btn-login">LOGIN</button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ========== CREATORS HERO ========== -->
+  <header class="page-hero">
+    <div class="floating-cube" style="top: 20%; left: 10%;"></div>
+    <div class="floating-cube" style="top: 60%; right: 15%; width: 40px; height: 40px; animation-duration: 15s;"></div>
+    <div class="floating-cube" style="top: 30%; right: 30%; width: 80px; height: 80px; animation-duration: 20s; animation-direction: reverse;"></div>
+    
+    <h1>Our <span class="orange-text">Creators</span></h1>
+    <p>Discover the faces driving authentic engagement. Real people, real stories, real impact.</p>
+  </header>
+
+  <!-- ========== CREATORS 3D GRID ========== -->
+  <section class="creators-section" style="background-color: var(--bg-color);">
+    <div class="creators-grid">
+      
+      <!-- Card 1 -->
+      <div class="tilt-card">
+        <div class="tilt-card-inner">
+          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&q=80" alt="Aarohi Shah" />
+          <div class="tilt-card-content">
+            <span class="tag">#Lifestyle</span>
+            <h3>Aarohi Shah</h3>
+            <div class="stats">
+              <span>Audience <strong>125K</strong></span>
+              <span>Eng. Rate <strong class="orange-text">4.8%</strong></span>
+              <span>Collabs <strong>24</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="tilt-card">
+        <div class="tilt-card-inner">
+          <img src="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?w=500&q=80" alt="Rohan Mehta" />
+          <div class="tilt-card-content">
+            <span class="tag">#Fitness</span>
+            <h3>Rohan Mehta</h3>
+            <div class="stats">
+              <span>Audience <strong>210K</strong></span>
+              <span>Eng. Rate <strong class="orange-text">5.2%</strong></span>
+              <span>Collabs <strong>35</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="tilt-card">
+        <div class="tilt-card-inner">
+          <img src="https://images.unsplash.com/photo-1488716820095-cbe80883c496?w=500&q=80" alt="Sneha Iyer" />
+          <div class="tilt-card-content">
+            <span class="tag">#Travel</span>
+            <h3>Sneha Iyer</h3>
+            <div class="stats">
+              <span>Audience <strong>180K</strong></span>
+              <span>Eng. Rate <strong class="orange-text">4.6%</strong></span>
+              <span>Collabs <strong>18</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="tilt-card">
+        <div class="tilt-card-inner">
+          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=500&q=80" alt="Karan Verma" />
+          <div class="tilt-card-content">
+            <span class="tag">#Tech</span>
+            <h3>Karan Verma</h3>
+            <div class="stats">
+              <span>Audience <strong>95K</strong></span>
+              <span>Eng. Rate <strong class="orange-text">3.9%</strong></span>
+              <span>Collabs <strong>12</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="tilt-card">
+        <div class="tilt-card-inner">
+          <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=500&q=80" alt="Diya Chopra" />
+          <div class="tilt-card-content">
+            <span class="tag">#Fashion</span>
+            <h3>Diya Chopra</h3>
+            <div class="stats">
+              <span>Audience <strong>160K</strong></span>
+              <span>Eng. Rate <strong class="orange-text">4.3%</strong></span>
+              <span>Collabs <strong>22</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="tilt-card">
+        <div class="tilt-card-inner">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&q=80" alt="Ananya Singh" />
+          <div class="tilt-card-content">
+            <span class="tag">#Beauty</span>
+            <h3>Ananya Singh</h3>
+            <div class="stats">
+              <span>Audience <strong>320K</strong></span>
+              <span>Eng. Rate <strong class="orange-text">6.1%</strong></span>
+              <span>Collabs <strong>40</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer" id="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="index.html" class="logo footer-logo">
+          <span class="logo-your">YOUR</span>
+          <span class="logo-socio">SOCIO</span>
+        </a>
+        <p class="footer-tagline">The ultimate platform connecting brands with real creators for meaningful collaborations.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-icon" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-icon" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" class="social-icon" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">COMPANY</h4>
+        <ul>
+          <li><a href="Brand.html">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">RESOURCES</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Guidelines</a></li>
+          <li><a href="Creators.html">For Creators</a></li>
+          <li><a href="Brand.html">For Brands</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">LEGAL</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Your Socio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

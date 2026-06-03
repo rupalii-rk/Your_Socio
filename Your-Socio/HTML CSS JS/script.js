@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Hamburger menu toggle
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('nav-links');
-    
+
     if (hamburger) {
         hamburger.addEventListener('click', () => {
             // Basic toggle for mobile (you can enhance this with a proper mobile menu CSS class later)
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         nextBtn.addEventListener('click', () => {
             // Scroll right by roughly one card width + gap
             slider.scrollBy({ left: 300, behavior: 'smooth' });
-            
+
             // Check if reached end to loop back (optional)
             if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 10) {
                 setTimeout(() => {
@@ -52,4 +52,30 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // 3D Tilt Effect for Cards
+    const tiltCards = document.querySelectorAll('.tilt-card, .value-card');
+    tiltCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = ((y - centerY) / centerY) * -15;
+            const rotateY = ((x - centerX) / centerX) * 15;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            card.style.boxShadow = `${-rotateY}px ${rotateX}px 30px rgba(255, 60, 0, 0.2)`;
+            card.style.borderColor = `rgba(255, 60, 0, 0.5)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+            card.style.boxShadow = `0 15px 30px rgba(0,0,0,0.2)`;
+            card.style.borderColor = `#333`;
+        });
+    });
 });
