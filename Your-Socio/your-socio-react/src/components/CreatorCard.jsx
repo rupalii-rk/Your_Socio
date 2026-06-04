@@ -7,11 +7,11 @@
  * parent renders `creators.map(c => <CreatorCard {...c} />)`.
  * Adding a 6th creator is now a one-line data change, not a 20-line HTML edit.
  */
-export default function CreatorCard({ name, niche, audience, engRate, image, id }) {
+export default function CreatorCard({ name, niche, audience, engRate, image, id, isBlurred }) {
   return (
     <div className="creator-card" id={id}>
       <div className="cc-img-wrap">
-        <img src={image} alt={name} />
+        <img src={image} alt={name} className={isBlurred ? 'blur-image' : ''} />
         <div className="cc-tag">{niche}</div>
       </div>
       <div className="cc-info">

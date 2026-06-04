@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import CreatorCard from './CreatorCard';
 import { featuredCreators } from '../data/creators';
 
@@ -43,9 +44,9 @@ export default function FeaturedCreators() {
     <section className="featured-creators" id="featured-creators">
       <div className="fc-header">
         <h2 className="section-title left">FEATURED CREATORS</h2>
-        <a href="#" className="view-all" id="view-all-creators">
+        <Link to="/creators" className="view-all" id="view-all-creators">
           VIEW ALL CREATORS <i className="fa-solid fa-arrow-right"></i>
-        </a>
+        </Link>
       </div>
       <div className="fc-slider-wrap">
         <div className="fc-slider" id="fc-slider" ref={sliderRef}>

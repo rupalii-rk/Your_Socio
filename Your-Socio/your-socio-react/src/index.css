@@ -1346,6 +1346,84 @@ ul {
   font-style: italic;
 }
 
+/* ========== CREATORS PAGE ========== */
+.creators-page {
+  padding: 6rem 5% 4rem;
+  background-color: var(--dark-bg);
+  min-height: 80vh;
+  color: var(--white);
+}
+.cp-header {
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+.cp-header p {
+  color: #aaa;
+  margin-bottom: 2rem;
+}
+.cp-filters {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  background: var(--dark-card);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  border: 1px solid #333;
+}
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.filter-group label {
+  font-weight: 600;
+  color: #ddd;
+}
+.filter-group select {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #555;
+  background: var(--dark-bg);
+  color: var(--white);
+  font-family: var(--font-body);
+  outline: none;
+}
+.cp-grid-wrap {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.cp-auth-warning {
+  background: rgba(255, 60, 0, 0.1);
+  border: 1px solid var(--primary-color);
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #fff;
+}
+.cp-auth-warning a {
+  color: var(--primary-color);
+  text-decoration: underline;
+  font-weight: 700;
+}
+.cp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2rem;
+}
+.cp-no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #aaa;
+  padding: 3rem 0;
+}
+.blur-image {
+  filter: blur(8px);
+  transition: filter 0.3s ease;
+  pointer-events: none;
+}
+
 /* ========== RESPONSIVE DESIGN ========== */
 @media (max-width: 1024px) {
   .hero-container { flex-direction: column; text-align: center; }
