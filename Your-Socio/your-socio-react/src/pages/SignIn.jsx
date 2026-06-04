@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthLayout from '../components/auth/AuthLayout';
 import AuthInput from '../components/auth/AuthInput';
 import SocialButtons from '../components/auth/SocialButtons';
+import { useAuth } from '../context/AuthContext';
 
 /**
  * SignIn — Sign-in page with split-panel layout.
@@ -12,13 +13,17 @@ import SocialButtons from '../components/auth/SocialButtons';
  *        social login buttons, and a link to sign up.
  *
  * State: form fields are controlled via useState.
- * All validation is visual / frontend-only (no backend).
+ * Authentication uses Firebase with a developer mock fallback.
  */
 export default function SignIn() {
   const [form, setForm] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [authError, setAuthError] = useState('');
+
+  const { login, loginWithGoogle, isConfigured } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,19 +49,50 @@ export default function SignIn() {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setAuthError('');
     const newErrors = validate();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
     setLoading(true);
-    // Simulate async call (frontend-only)
-    setTimeout(() => {
+    try {
+      await login(form.email, form.password);
+      navigate('/');
+    } catch (err) {
+      console.error(err);
+      let message = 'Failed to sign in. Please try again.';
+      if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found') {
+        message = 'Invalid email or password.';
+      } else if (err.code === 'auth/too-many-requests') {
+        message = 'Too many attempts. Please try again later.';
+      } else if (err.message) {
+        message = err.message;
+      }
+      setAuthError(message);
+    } finally {
       setLoading(false);
-      // In a real app, this would redirect or show success
-    }, 1500);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setAuthError('');
+    setLoading(true);
+    try {
+      await loginWithGoogle();
+      navigate('/');
+    } catch (err) {
+      console.error(err);
+      let message = 'Failed to sign in with Google.';
+      if (err.message) {
+        message = err.message;
+      }
+      setAuthError(message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -70,6 +106,38 @@ export default function SignIn() {
           Sign in to your account to continue where you left off.
         </p>
       </div>
+
+      {!isConfigured && (
+        <div style={{
+          color: '#e67e22',
+          backgroundColor: 'rgba(230, 126, 34, 0.1)',
+          border: '1px solid rgba(230, 126, 34, 0.2)',
+          padding: '0.75rem 1rem',
+          borderRadius: '8px',
+          fontSize: '0.85rem',
+          fontWeight: '500',
+          marginBottom: '1rem',
+          textAlign: 'center'
+        }}>
+          ⚠️ Firebase is not configured. Running in Mock Auth Mode.
+        </div>
+      )}
+
+      {authError && (
+        <div style={{
+          color: '#e74c3c',
+          backgroundColor: 'rgba(231, 76, 60, 0.1)',
+          border: '1px solid rgba(231, 76, 60, 0.2)',
+          padding: '0.75rem 1rem',
+          borderRadius: '8px',
+          fontSize: '0.85rem',
+          fontWeight: '500',
+          marginBottom: '1rem',
+          textAlign: 'center'
+        }}>
+          {authError}
+        </div>
+      )}
 
       <form className="auth-form" onSubmit={handleSubmit} noValidate>
         <AuthInput
@@ -127,7 +195,7 @@ export default function SignIn() {
           <span className="auth-divider-line" />
         </div>
 
-        <SocialButtons action="sign in" />
+        <SocialButtons action="sign in" onGoogleClick={handleGoogleLogin} />
       </form>
 
       <p className="auth-switch">
