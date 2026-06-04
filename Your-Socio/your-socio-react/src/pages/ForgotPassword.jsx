@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/auth.css';
 import AuthInput from '../components/auth/AuthInput';
+import { useAuth } from '../context/AuthContext';
 
 /**
  * ForgotPassword — Centered card on a dark animated gradient background.
@@ -19,7 +20,9 @@ export default function ForgotPassword() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const handleSubmit = (e) => {
+  const { resetPassword, isConfigured } = useAuth();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email.trim()) {
       setError('Email is required');
@@ -31,11 +34,23 @@ export default function ForgotPassword() {
     }
     setError('');
     setLoading(true);
-    // Simulate async call
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      await resetPassword(email);
       setSuccess(true);
-    }, 1800);
+    } catch (err) {
+      console.error(err);
+      let message = 'Failed to send reset email. Please try again.';
+      if (err.code === 'auth/user-not-found') {
+        message = 'No account found with this email.';
+      } else if (err.code === 'auth/invalid-email') {
+        message = 'Invalid email address.';
+      } else if (err.message) {
+        message = err.message;
+      }
+      setError(message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -58,6 +73,22 @@ export default function ForgotPassword() {
               No worries! Enter the email address associated with your account and
               we&apos;ll send you a link to reset your password.
             </p>
+
+            {!isConfigured && (
+              <div style={{
+                color: '#e67e22',
+                backgroundColor: 'rgba(230, 126, 34, 0.1)',
+                border: '1px solid rgba(230, 126, 34, 0.2)',
+                padding: '0.75rem 1rem',
+                borderRadius: '8px',
+                fontSize: '0.85rem',
+                fontWeight: '500',
+                marginBottom: '1.5rem',
+                textAlign: 'center'
+              }}>
+                ⚠️ Firebase is not configured. Running in Mock Auth Mode.
+              </div>
+            )}
 
             <form className="auth-forgot-form" onSubmit={handleSubmit} noValidate>
               <AuthInput

@@ -3,14 +3,18 @@
  *
  * Props:
  *  - action: "sign in" | "sign up" — adjusts button text
- *
- * These are frontend-only visual buttons. In a real app, each would
- * trigger an OAuth flow.
+ *  - onGoogleClick: callback function for Google Auth
+ *  - onGithubClick: callback function for GitHub Auth
  */
-export default function SocialButtons({ action = 'sign in' }) {
+export default function SocialButtons({ action = 'sign in', onGoogleClick, onGithubClick }) {
   return (
     <div className="auth-social-buttons">
-      <button type="button" className="auth-social-btn" id="btn-social-google">
+      <button 
+        type="button" 
+        className="auth-social-btn" 
+        id="btn-social-google"
+        onClick={onGoogleClick}
+      >
         {/* Google SVG icon */}
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4" />
@@ -20,8 +24,13 @@ export default function SocialButtons({ action = 'sign in' }) {
         </svg>
         Google
       </button>
-
-      <button type="button" className="auth-social-btn" id="btn-social-github">
+      
+      <button 
+        type="button" 
+        className="auth-social-btn" 
+        id="btn-social-github"
+        onClick={onGithubClick}
+      >
         {/* GitHub SVG icon */}
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -34,3 +43,4 @@ export default function SocialButtons({ action = 'sign in' }) {
     </div>
   );
 }
+

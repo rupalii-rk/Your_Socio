@@ -1,30 +1,17 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
+import { useAuth } from '../context/AuthContext';
 
 /**
  * Navbar — Top navigation with mobile hamburger toggle.
  *
- * React concepts used:
- *
- * 1. **useState** — `isMobileMenuOpen` replaces the vanilla JS approach of
- *    directly mutating `navLinks.style.display` and 5 other inline styles.
- *    React's model: state changes → re-render → UI updates automatically.
- *
- * 2. **Declarative class toggling** — Instead of imperatively setting styles
- *    in a click handler, we compute the className from state:
- *    `nav-links ${isMobileMenuOpen ? 'nav-links--open' : ''}`.
- *    The CSS class `.nav-links--open` handles all the visual changes.
- *
- * 3. **Event handling** — `onClick={() => set...}` replaces
- *    `document.getElementById('hamburger').addEventListener('click', ...)`.
- *    The handler is co-located with the element it controls.
- *
- * State owner rationale: Navbar owns `isMobileMenuOpen` because no other
- * component in the tree needs to know whether the mobile menu is open.
+ * Scopes user auth state using useAuth hook to conditionally render
+ * username and logout buttons.
  */
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, logout } = useAuth();
 
   return (
     <nav className="navbar" id="navbar">
@@ -39,7 +26,30 @@ export default function Navbar() {
           <li><a href="#brands" id="nav-brands">BRANDS</a></li>
           <li><a href="#support" id="nav-support">SUPPORT</a></li>
         </ul>
-        <Link to="/signin" className="btn-login" id="btn-login">LOGIN</Link>
+        {user && (
+          <span className="nav-user-name" style={{
+            fontWeight: 800,
+            color: 'var(--text-dark)',
+            fontSize: '0.85rem',
+            fontFamily: 'var(--font-heading)',
+            marginRight: '0.75rem',
+            letterSpacing: '0.5px'
+          }}>
+            HI, {(user.displayName || user.email.split('@')[0]).toUpperCase()}
+          </span>
+        )}
+        {user ? (
+          <button
+            onClick={logout}
+            className="btn-login"
+            id="btn-logout"
+            style={{ backgroundColor: 'var(--text-dark)' }}
+          >
+            LOGOUT
+          </button>
+        ) : (
+          <Link to="/signin" className="btn-login" id="btn-login">LOGIN</Link>
+        )}
         <button
           className="hamburger"
           id="hamburger"

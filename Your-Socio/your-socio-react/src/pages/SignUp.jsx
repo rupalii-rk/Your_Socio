@@ -1,8 +1,9 @@
 import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthLayout from '../components/auth/AuthLayout';
 import AuthInput from '../components/auth/AuthInput';
 import SocialButtons from '../components/auth/SocialButtons';
+import { useAuth } from '../context/AuthContext';
 
 /**
  * getPasswordStrength — Evaluates password strength for the strength bar.
@@ -30,6 +31,7 @@ function getPasswordStrength(password) {
  * Left: form panel with full name, email, password + strength indicator,
  *       confirm password, terms checkbox, social signup, link to sign in.
  * Right: dark branding panel (reversed for visual variety).
+ * Uses Firebase Auth under the hood with local mock fallback.
  */
 export default function SignUp() {
   const [form, setForm] = useState({
@@ -41,6 +43,10 @@ export default function SignUp() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [authError, setAuthError] = useState('');
+
+  const { signup, loginWithGoogle, isConfigured } = useAuth();
+  const navigate = useNavigate();
 
   const strength = useMemo(() => getPasswordStrength(form.password), [form.password]);
 
@@ -78,17 +84,52 @@ export default function SignUp() {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setAuthError('');
     const newErrors = validate();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
     setLoading(true);
-    setTimeout(() => {
+    try {
+      await signup(form.email, form.password, form.fullName);
+      navigate('/');
+    } catch (err) {
+      console.error(err);
+      let message = 'Failed to create account. Please try again.';
+      if (err.code === 'auth/email-already-in-use') {
+        message = 'That email address is already in use.';
+      } else if (err.code === 'auth/invalid-email') {
+        message = 'Invalid email address.';
+      } else if (err.code === 'auth/weak-password') {
+        message = 'Weak password. Please use a stronger password.';
+      } else if (err.message) {
+        message = err.message;
+      }
+      setAuthError(message);
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
+  };
+
+  const handleGoogleSignUp = async () => {
+    setAuthError('');
+    setLoading(true);
+    try {
+      await loginWithGoogle();
+      navigate('/');
+    } catch (err) {
+      console.error(err);
+      let message = 'Failed to sign up with Google.';
+      if (err.message) {
+        message = err.message;
+      }
+      setAuthError(message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -103,6 +144,38 @@ export default function SignUp() {
           Start your journey with Your Socio today.
         </p>
       </div>
+
+      {!isConfigured && (
+        <div style={{
+          color: '#e67e22',
+          backgroundColor: 'rgba(230, 126, 34, 0.1)',
+          border: '1px solid rgba(230, 126, 34, 0.2)',
+          padding: '0.75rem 1rem',
+          borderRadius: '8px',
+          fontSize: '0.85rem',
+          fontWeight: '500',
+          marginBottom: '1rem',
+          textAlign: 'center'
+        }}>
+          ⚠️ Firebase is not configured. Running in Mock Auth Mode.
+        </div>
+      )}
+
+      {authError && (
+        <div style={{
+          color: '#e74c3c',
+          backgroundColor: 'rgba(231, 76, 60, 0.1)',
+          border: '1px solid rgba(231, 76, 60, 0.2)',
+          padding: '0.75rem 1rem',
+          borderRadius: '8px',
+          fontSize: '0.85rem',
+          fontWeight: '500',
+          marginBottom: '1rem',
+          textAlign: 'center'
+        }}>
+          {authError}
+        </div>
+      )}
 
       <form className="auth-form" onSubmit={handleSubmit} noValidate>
         <AuthInput
@@ -200,7 +273,7 @@ export default function SignUp() {
           <span className="auth-divider-line" />
         </div>
 
-        <SocialButtons action="sign up" />
+        <SocialButtons action="sign up" onGoogleClick={handleGoogleSignUp} />
       </form>
 
       <p className="auth-switch">
