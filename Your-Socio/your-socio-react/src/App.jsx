@@ -13,6 +13,9 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import ForgotPassword from './pages/ForgotPassword';
 import CreatorsPage from './pages/CreatorsPage';
+import AboutUs from './pages/AboutUs';
+import Support from './pages/Support';
+import BrandsPage from './pages/BrandsPage';
 
 /**
  * LandingPage — All original sections grouped into a single route component.
@@ -54,6 +57,9 @@ export default function App() {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/creators" element={<CreatorsPage />} />
+      <Route path="/about" element={<AboutUs />} />
+      <Route path="/support" element={<Support />} />
+      <Route path="/brands" element={<BrandsPage />} />
     </Routes>
   );
 }

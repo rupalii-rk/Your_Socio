@@ -21,10 +21,10 @@ export default function Navbar() {
           className={`nav-links ${isMobileMenuOpen ? 'nav-links--open' : ''}`}
           id="nav-links"
         >
-          <li><a href="#about" id="nav-about">ABOUT</a></li>
-          <li><a href="#creators" id="nav-creators">CREATORS</a></li>
-          <li><a href="#brands" id="nav-brands">BRANDS</a></li>
-          <li><a href="#support" id="nav-support">SUPPORT</a></li>
+          <li><Link to="/about" id="nav-about">ABOUT</Link></li>
+          <li><Link to="/creators" id="nav-creators">CREATORS</Link></li>
+          <li><Link to="/brands" id="nav-brands">BRANDS</Link></li>
+          <li><Link to="/support" id="nav-support">SUPPORT</Link></li>
         </ul>
         {user && (
           <span className="nav-user-name" style={{

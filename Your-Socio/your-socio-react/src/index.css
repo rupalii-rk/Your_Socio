@@ -1424,6 +1424,115 @@ ul {
   pointer-events: none;
 }
 
+/* ========== ABOUT, SUPPORT, BRANDS PAGES ========== */
+.about-page, .support-page, .brands-page {
+  padding: 6rem 5% 4rem;
+  background-color: var(--dark-bg);
+  min-height: 80vh;
+  color: var(--white);
+}
+.about-hero, .support-header, .brands-header {
+  max-width: 800px;
+  margin: 0 auto 4rem;
+  text-align: center;
+}
+.about-subtitle, .support-header p, .brands-header p {
+  color: #aaa;
+  font-size: 1.1rem;
+}
+.about-content {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+.about-section h2 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+.about-section p {
+  color: #ddd;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.support-container {
+  display: flex;
+  gap: 3rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  align-items: flex-start;
+}
+.support-form-card, .contact-card {
+  background: var(--dark-card);
+  padding: 2.5rem;
+  border-radius: var(--border-radius-lg);
+  border: 1px solid #333;
+  flex: 1;
+}
+.support-form-card h2, .contact-card h2 {
+  margin-bottom: 1.5rem;
+}
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.feedback-form input, .feedback-form textarea {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: var(--dark-bg);
+  color: var(--white);
+  font-family: var(--font-body);
+}
+.feedback-form input:focus, .feedback-form textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+.success-msg {
+  color: #4caf50;
+  font-weight: 600;
+  padding: 1rem;
+  background: rgba(76, 175, 80, 0.1);
+  border-radius: 8px;
+}
+.contact-card p {
+  color: #aaa;
+  margin-bottom: 2rem;
+}
+.contact-info h3 {
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+.phone-number {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--white) !important;
+}
+.phone-number i {
+  color: var(--primary-color);
+  margin-right: 10px;
+}
+
+.brands-grid-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.brands-logos.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+}
+@media (max-width: 768px) {
+  .support-container {
+    flex-direction: column;
+  }
+}
+
 /* ========== RESPONSIVE DESIGN ========== */
 @media (max-width: 1024px) {
   .hero-container { flex-direction: column; text-align: center; }
