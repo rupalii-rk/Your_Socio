@@ -1,20 +1,5 @@
 export const features = [
-  {
-    id: 'feat-1',
-    icon: 'fa-solid fa-circle-check',
-    title: 'REAL CREATORS',
-    desc: 'Verified creators with authentic audiences.',
-  },
-  {
-    id: 'feat-2',
-    icon: 'fa-solid fa-chart-line',
-    title: 'NO FAKE METRICS',
-    desc: 'Transparent data you can actually trust.',
-  },
-  {
-    id: 'feat-3',
-    icon: 'fa-solid fa-people-group',
-    title: 'MEANINGFUL ENGAGEMENT',
-    desc: 'Real connections that drive real results.',
-  },
+  { id: 'feat-1', title: 'Analytics', desc: 'Detailed insights', icon: 'fa-solid fa-chart-pie' },
+  { id: 'feat-2', title: 'Management', desc: 'Manage campaigns', icon: 'fa-solid fa-list-check' },
+  { id: 'feat-3', title: 'Growth', desc: 'Grow your audience', icon: 'fa-solid fa-arrow-trend-up' }
 ];
