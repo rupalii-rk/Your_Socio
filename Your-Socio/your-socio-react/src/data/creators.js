@@ -1,12 +1,12 @@
 export const impactAvatars = [
-  { src: 'https://via.placeholder.com/50', alt: 'User 1' },
-  { src: 'https://via.placeholder.com/50', alt: 'User 2' },
-  { src: 'https://via.placeholder.com/50', alt: 'User 3' },
+  { src: 'https://images.pexels.com/photos/36645466/pexels-photo-36645466.jpeg', alt: 'User 1' },
+  { src: 'https://images.pexels.com/photos/36645466/pexels-photo-36645466.jpeg', alt: 'User 2' },
+  { src: 'https://images.pexels.com/photos/36645466/pexels-photo-36645466.jpeg', alt: 'User 3' },
 ];
 
 export const featuredCreators = [
-  { id: 'creator-1', name: 'John Doe', niche: 'Tech', audience: '50K', engRate: '5.2%', image: 'https://via.placeholder.com/150', isBlurred: false },
-  { id: 'creator-2', name: 'Jane Smith', niche: 'Lifestyle', audience: '120K', engRate: '8.4%', image: 'https://via.placeholder.com/150', isBlurred: false },
+  { id: 'creator-1', name: 'John Doe', niche: 'Tech', audience: '50K', engRate: '5.2%', image: 'https://images.pexels.com/photos/36645466/pexels-photo-36645466.jpeg', isBlurred: false },
+  { id: 'creator-2', name: 'Jane Smith', niche: 'Lifestyle', audience: '120K', engRate: '8.4%', image: 'https://images.pexels.com/photos/2505053/pexels-photo-2505053.jpeg', isBlurred: false },
 ];
 
 export const dashboardCreators = [
